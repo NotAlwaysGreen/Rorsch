@@ -7,7 +7,12 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             print ("hit " + collision.gameObject.name + " !");
-            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
 
