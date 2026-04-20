@@ -96,11 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff47aadc6fb9804fa638cd20d8986f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  minSpeed: 6
+  maxSpeed: 18
+  minScale: 200
+  maxScale: 1000
   player: {fileID: 0}
   spawner: {fileID: 0}
-  moveSpeed: 10
   maxHP: 1
   fadeDuration: 1
+  fadeOutDuration: 0.2
 --- !u!135 &5156584956407506403
 SphereCollider:
   m_ObjectHideFlags: 0

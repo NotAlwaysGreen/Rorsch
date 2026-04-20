@@ -191,62 +191,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137635587}
   m_CullTransparentMesh: 1
---- !u!1 &159457164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 159457166}
-  - component: {fileID: 159457165}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &159457165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159457164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0934df1583aa04683c5b7daf7112d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 2419851337821581290, guid: dacf70a81bf84de4ba19554c47990f6f, type: 3}
-  spawnPoints: []
-  player: {fileID: 0}
-  spawnInterval: 2
-  spawnRadius: 5
-  maxEnemies: 10
---- !u!4 &159457166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159457164}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -46.1, y: 10.3, z: 42.82}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +483,7 @@ Transform:
   m_GameObject: {fileID: 442968275}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.2200003, y: -5.7130003, z: -4.8900003}
+  m_LocalPosition: {x: -7.7, y: -4.71, z: -0.47}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1031,7 +975,7 @@ Transform:
   m_GameObject: {fileID: 1197965254}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.2200003, y: -5.7130003, z: 4.5099998}
+  m_LocalPosition: {x: -8.2, y: -5.23, z: 1.29}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1211,7 +1155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Gun
   bulletPrefab: {fileID: 2966311992608409611, guid: e26f49320dad50349ac33e4405dcd5e8, type: 3}
   bulletSpawn: {fileID: 892682686}
-  bulletVelocity: 100
+  bulletVelocity: 1000
   bulletPrefabLifetime: 3
   fireRate: 0.5
   maxAmmo: 5
@@ -1370,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 1585029924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.23, y: -5.7130003, z: -4.8900003}
+  m_LocalPosition: {x: -9.24, y: -5.7130003, z: -2.69}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1665,7 +1609,7 @@ Transform:
   m_GameObject: {fileID: 1749280285}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9900002, y: -5.7130003, z: 4.5099998}
+  m_LocalPosition: {x: -7.12, y: -5.7130003, z: -1.11}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2143,6 +2087,5 @@ SceneRoots:
   - {fileID: 847599351}
   - {fileID: 890045260}
   - {fileID: 2020649279}
-  - {fileID: 159457166}
   - {fileID: 1843611281}
   - {fileID: 2131310849}
