@@ -54,7 +54,7 @@ public class Gun : MonoBehaviour
     // GRAB (only when idle)
     if (Input.GetKeyDown(KeyCode.E) && Time.time >= nextTimeToFire)
     {
-        Pickup();
+        StartCoroutine(Pickup());
         nextTimeToFire = Time.time + grabTime; // prevent shooting immediately after grab
     }
 }
