@@ -45,8 +45,9 @@ public class Enemy : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.LookRotation(direction)* Quaternion.Euler(-90f, 0f, 0f);
         }
+           
 
         transform.position += direction.normalized * moveSpeed * Time.deltaTime;
     }

@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefabs:
-  - {fileID: 3600692526121257942, guid: 4272ecacfa75b47479a74b53ae7ebcf1, type: 3}
+  - {fileID: 344472431106841335, guid: 7c211aaa02fbe9c45997f808b106a67a, type: 3}
   spawnPoints:
   - {fileID: 442968276}
   - {fileID: 1585029925}
