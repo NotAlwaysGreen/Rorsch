@@ -38,12 +38,12 @@ Material:
   - MOTIONVECTORS
   - DepthOnly
   - SHADOWCASTER
-  m_LockedProperties: 
+  m_LockedProperties: _BumpMap
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: e9ffe111b01fb6440b735b1c7fa6f969, type: 3}
+        m_Texture: {fileID: 2800000, guid: 01dd8f36297fea746b9b78b57529911a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e9ffe111b01fb6440b735b1c7fa6f969, type: 3}
+        m_Texture: {fileID: 2800000, guid: 01dd8f36297fea746b9b78b57529911a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

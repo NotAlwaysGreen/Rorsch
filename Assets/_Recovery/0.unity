@@ -1555,6 +1555,7 @@ MonoBehaviour:
   fireRate: 0.5
   maxAmmo: 5
   reloadTime: 2.5
+  grabTime: 1
 --- !u!1 &1433279239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,7 +2124,7 @@ MonoBehaviour:
   - {fileID: 1197965255}
   - {fileID: 1749280286}
   player: {fileID: 847599351}
-  spawnInterval: 10
+  spawnInterval: 2
   spawnRadius: 5
   maxEnemies: 10
 --- !u!135 &1843611278

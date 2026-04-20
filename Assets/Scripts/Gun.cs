@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
 
     public float reloadTime = 3f;
+    public float grabTime = 1f;
     private bool isReloading = false;
 
     private Animator animator;
@@ -26,28 +27,43 @@ public class Gun : MonoBehaviour
     }
 
     void Update()
-    {
-        if (isReloading)
-            return;
+{
+    if (isReloading)
+        return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time >= nextTimeToFire)
+    // SHOOTING
+    if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time >= nextTimeToFire)
+    {
+        if (currentAmmo > 1)
         {
-            if (currentAmmo > 1)
-            {
-                FireWeapon();
-                currentAmmo--;
-                nextTimeToFire = Time.time + fireRate;
-            }
-            else
-            {
-                FireWeapon();
-                currentAmmo--;
-                nextTimeToFire = Time.time + fireRate;
-                StartCoroutine(Reload());
-            }
+            FireWeapon();
+            currentAmmo--;
+            nextTimeToFire = Time.time + fireRate;
         }
+        else
+        {
+            FireWeapon();
+            currentAmmo--;
+            nextTimeToFire = Time.time + fireRate;
+            StartCoroutine(Reload());
+        }
+
+        return; // important: prevents grab on same frame
     }
 
+    // GRAB (only when idle)
+    if (Input.GetKeyDown(KeyCode.E) && Time.time >= nextTimeToFire)
+    {
+        Pickup();
+        nextTimeToFire = Time.time + grabTime; // prevent shooting immediately after grab
+    }
+}
+
+    private IEnumerator Pickup()
+    {   
+        animator.SetTrigger("GRAB");
+        yield return new WaitForSeconds(grabTime);
+    }
     private void FireWeapon()
     {
         animator.SetTrigger("RECOIL");
