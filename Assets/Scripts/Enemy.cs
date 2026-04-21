@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     public float minSpeed = 6f;
     public float maxSpeed = 18f;
 
-    public float minScale = 2f;
-    public float maxScale = 10f;
+    public float minScale = 200f;
+    public float maxScale = 1000f;
 
     [Header("References")]
     public Transform player;
@@ -19,8 +19,8 @@ public class Enemy : MonoBehaviour
     private int currentHP;
 
     [Header("Visual")]
-    public float fadeDuration = 2f;
-    public float fadeOutDuration = 0.5f;
+    public float fadeDuration = 1f;
+    public float fadeOutDuration = 0.2f;
 
     private float moveSpeed;
 
