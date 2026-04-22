@@ -12,6 +12,7 @@ public class MouseMovement : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     
@@ -22,9 +23,20 @@ public class MouseMovement : MonoBehaviour
 
         xRotation -= mouseY;
         yRotation += mouseX;
-        
+
         xRotation = Mathf.Clamp(xRotation, topClamp, bottomClamp);
 
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
+        esc();
+    }
+
+    private static void esc()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

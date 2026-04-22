@@ -64,6 +64,15 @@ public class Enemy : MonoBehaviour
         }
 
         transform.position += direction.normalized * moveSpeed * Time.deltaTime;
+        killWhenPlayerClose();
+    }
+
+    private void killWhenPlayerClose()
+    {
+        if (Vector3.Distance(transform.position, player.position) < 15f)
+        {
+            Die();
+        }
     }
 
     // ---------------- FADE IN ----------------
@@ -86,31 +95,17 @@ public class Enemy : MonoBehaviour
         fadeCoroutine = null;
     }
 
-    // ---------------- DAMAGE ----------------
+    
     void OnCollisionEnter(Collision collision)
     {
         if (isDying) return;
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            TakeDamage(1);
-            Destroy(collision.gameObject);
-        }
-    }
-
-    void TakeDamage(int damage)
-    {
-        if (isDying) return;
-
-        currentHP -= damage;
-
-        if (currentHP <= 0)
-        {
             Die();
         }
     }
-
-    // ---------------- DEATH ----------------
+  
     void Die()
     {
         if (isDying) return;
