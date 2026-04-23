@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
 
     private void killWhenPlayerClose()
     {
-        if (Vector3.Distance(transform.position, player.position) < 15f)
+        if (Vector3.Distance(transform.position, player.position) < 10f)
         {
             Die();
         }
