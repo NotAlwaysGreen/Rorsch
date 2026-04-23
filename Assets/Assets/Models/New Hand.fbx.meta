@@ -205,7 +205,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ExitScavaging (1)
+      name: ExitScavaging
       takeName: ExitScavaging
       internalID: 960133294320419682
       firstFrame: 0
