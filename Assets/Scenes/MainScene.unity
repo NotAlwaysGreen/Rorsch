@@ -613,8 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseMovement
   mouseSensitivity: 150
-  topClamp: -70
-  bottomClamp: 70
+  topClamp: -90
+  bottomClamp: 90
 --- !u!114 &847599353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,7 +629,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementm
   speed: 20.4
   gravity: -59.3
-  jumpHeight: 5.38
   groundCheck: {fileID: 944107198}
   groundDistance: 0.4
   groundMask:

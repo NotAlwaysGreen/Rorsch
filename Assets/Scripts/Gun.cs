@@ -1,3 +1,4 @@
+
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Gun : MonoBehaviour
     // =====================================================
     // GUN SETTINGS
     // =====================================================
+
     public float bulletVelocity = 30f;
     public float bulletLifetime = 3f;
 
@@ -38,12 +40,18 @@ public class Gun : MonoBehaviour
 
     private float nextTimeToFire;
 
+    private Coroutine scavengeRoutine;
+
     // =====================================================
-    // REFRENCE
+    // REFERENCES
     // =====================================================
+
     private Animator animator;
+
     public TextMeshProUGUI ammoText;
+
     public GameObject bulletPrefab;
+
     public Transform bulletSpawn;
 
     void Awake()
@@ -57,12 +65,12 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if (isReloading)
-            return;
-
         HandleShootInput();
+
         HandleReloadInput();
+
         HandleGrabInput();
+
         HandleScavengeInput();
     }
 
@@ -74,7 +82,9 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)
             && Time.time >= nextTimeToFire
-            && currentAmmo > 0)
+            && currentAmmo > 0
+            && !isReloading
+            && !isScavenging)
         {
             FireWeapon();
 
@@ -84,8 +94,9 @@ public class Gun : MonoBehaviour
 
             nextTimeToFire = Time.time + fireRate;
 
-            // auto reload when empty
-            if (currentAmmo <= 0 && ammoStorage > 0)
+            // auto reload
+            if (currentAmmo <= 0
+                && ammoStorage > 0)
             {
                 StartCoroutine(Reload());
             }
@@ -97,7 +108,8 @@ public class Gun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)
             && currentAmmo < maxAmmo
             && ammoStorage > 0
-            && !isReloading)
+            && !isReloading
+            && !isScavenging)
         {
             StartCoroutine(Reload());
         }
@@ -106,7 +118,9 @@ public class Gun : MonoBehaviour
     private void HandleGrabInput()
     {
         if (Input.GetKeyDown(KeyCode.E)
-            && Time.time >= nextTimeToFire)
+            && Time.time >= nextTimeToFire
+            && !isReloading
+            && !isScavenging)
         {
             StartCoroutine(Pickup());
 
@@ -116,19 +130,19 @@ public class Gun : MonoBehaviour
 
     private void HandleScavengeInput()
     {
-        // start holding
+        // start scavenging
         if (Input.GetKeyDown(KeyCode.Mouse1)
-            && !isScavenging)
+            && !isScavenging
+            && !isReloading)
         {
-            StartCoroutine(ScavengeAmmo());
+            scavengeRoutine =
+                StartCoroutine(ScavengeAmmo());
         }
 
-        // released early = cancel
+        // stop scavenging
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            isScavenging = false;
-
-            animator.SetBool("SCAVENGE", false);
+            StopScavenging();
         }
     }
 
@@ -146,12 +160,14 @@ public class Gun : MonoBehaviour
             Quaternion.identity
         );
 
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        Rigidbody rb =
+            bullet.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
             rb.AddForce(
-                bulletSpawn.forward * bulletVelocity,
+                bulletSpawn.forward
+                * bulletVelocity,
                 ForceMode.Impulse
             );
         }
@@ -168,20 +184,28 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
 
+        // interrupt scavenging
+        StopScavenging();
+
         animator.SetTrigger("RELOAD");
 
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(
+            reloadTime
+        );
 
-        int bulletsNeeded = maxAmmo - currentAmmo;
+        int bulletsNeeded =
+            maxAmmo - currentAmmo;
 
         if (ammoStorage >= bulletsNeeded)
         {
             currentAmmo += bulletsNeeded;
+
             ammoStorage -= bulletsNeeded;
         }
         else
         {
             currentAmmo += ammoStorage;
+
             ammoStorage = 0;
         }
 
@@ -194,37 +218,69 @@ public class Gun : MonoBehaviour
     {
         animator.SetTrigger("GRAB");
 
-        yield return new WaitForSeconds(grabTime);
+        yield return new WaitForSeconds(
+            grabTime
+        );
     }
 
     private IEnumerator ScavengeAmmo()
     {
         isScavenging = true;
 
-        animator.SetBool("SCAVENGE", true);
+        animator.SetBool(
+            "IS_SCAVAGING",
+            true
+        );
 
-        float timer = 0f;
-
-        while (timer < scavengeTime)
+        while (isScavenging)
         {
-            // released early
-            if (!isScavenging)
+            float timer = 0f;
+
+            while (timer < scavengeTime)
             {
-                yield break;
+                if (!isScavenging)
+                {
+                    animator.SetBool(
+                        "IS_SCAVAGING",
+                        false
+                    );
+
+                    yield break;
+                }
+
+                timer += Time.deltaTime;
+
+                yield return null;
             }
 
-            timer += Time.deltaTime;
+            ammoStorage += 1;
 
-            yield return null;
+            UpdateAmmoUI();
         }
 
-        ammoStorage += 1;
+        animator.SetBool(
+            "IS_SCAVAGING",
+            false
+        );
+    }
 
-        UpdateAmmoUI();
-
-        animator.SetBool("SCAVENGE", false);
-
+    private void StopScavenging()
+    {
         isScavenging = false;
+
+        animator.SetBool(
+            "IS_SCAVAGING",
+            false
+        );
+
+        if (scavengeRoutine != null)
+        {
+            StopCoroutine(
+                scavengeRoutine
+            );
+
+            scavengeRoutine = null;
+        }
     }
 
     private IEnumerator DestroyBulletAfterTime(
@@ -232,7 +288,9 @@ public class Gun : MonoBehaviour
         float time
     )
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(
+            time
+        );
 
         if (bullet != null)
         {
@@ -247,6 +305,16 @@ public class Gun : MonoBehaviour
     private void UpdateAmmoUI()
     {
         ammoText.text =
-            currentAmmo + "/" + ammoStorage;
+            currentAmmo
+            + "/"
+            + ammoStorage;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        ammoStorage += amount;
+
+        UpdateAmmoUI();
     }
 }
+
