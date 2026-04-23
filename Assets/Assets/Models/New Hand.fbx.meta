@@ -200,7 +200,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.8326531
+      - time: 1
         functionName: AddAmmo
         data: 
         objectReferenceParameter: {instanceID: 0}
