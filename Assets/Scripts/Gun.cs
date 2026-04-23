@@ -1,6 +1,7 @@
 
 using System.Collections;
 using TMPro;
+using Unity.Hierarchy;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -29,6 +30,7 @@ public class Gun : MonoBehaviour
 
     public float reloadTime = 3f;
     public float grabTime = 1f;
+    public float reduceInsanityAmount = 0.2f;
     public float scavengeTime = 2f;
 
     // =====================================================
@@ -37,6 +39,8 @@ public class Gun : MonoBehaviour
 
     private bool isReloading = false;
     private bool isScavenging = false;
+    private bool isPickingUp = false;
+   
 
     private float nextTimeToFire;
 
@@ -53,7 +57,8 @@ public class Gun : MonoBehaviour
     public GameObject bulletPrefab;
 
     public Transform bulletSpawn;
-
+    public InsaneBar insaneBar;
+    private GameObject currentPill;
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -218,11 +223,39 @@ public class Gun : MonoBehaviour
     {
         animator.SetTrigger("GRAB");
 
-        yield return new WaitForSeconds(
-            grabTime
-        );
-    }
+        if (isPickingUp && currentPill != null)
+        {
+            insaneBar.ReduceInsanity(reduceInsanityAmount);
 
+            Destroy(currentPill);
+
+            currentPill = null;
+            isPickingUp = false;
+        }
+
+        yield return new WaitForSeconds(grabTime);
+    }
+    //for grab
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Pills"))
+        {
+            
+            isPickingUp = true;
+            currentPill = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Pills"))
+        {
+            
+
+            isPickingUp = false;
+            currentPill = null;
+        }
+    }
+    //end
     private IEnumerator ScavengeAmmo()
     {
         isScavenging = true;
