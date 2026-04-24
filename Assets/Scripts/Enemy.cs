@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Vignette Effect")]
+    private VignetteController vignetteController;
+
     [Header("Randomization")]
     public float minSpeed = 6f;
     public float maxSpeed = 18f;
@@ -32,6 +35,13 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        GameObject vignetteObj = GameObject.FindGameObjectWithTag("Vignette");
+
+        if (vignetteObj != null)
+        {
+            vignetteController = vignetteObj.GetComponent<VignetteController>();
+        }
+
         rend = GetComponent<Renderer>();
         mat = rend.material;
 
@@ -67,10 +77,15 @@ public class Enemy : MonoBehaviour
         killWhenPlayerClose();
     }
 
-    private void killWhenPlayerClose()
+        private void killWhenPlayerClose()
     {
         if (Vector3.Distance(transform.position, player.position) < 10f)
         {
+            if (vignetteController != null)
+            {
+                vignetteController.PlayEffect();
+            }
+
             Die();
         }
     }

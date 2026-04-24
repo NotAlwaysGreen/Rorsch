@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Bullet
   - Pills
+  - Vignette
   layers:
   - Default
   - TransparentFX
