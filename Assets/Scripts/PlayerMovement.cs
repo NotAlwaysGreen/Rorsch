@@ -4,9 +4,9 @@ public class PlayerMovementm : MonoBehaviour
 {
     private CharacterController controller;
 
-    public float speed = 12f;
+    public float speed;
+    public float ShiftSpeed;
     public float gravity = -9.81f * 2;
-   
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -15,7 +15,7 @@ public class PlayerMovementm : MonoBehaviour
     private Vector3 velocity;
 
     private bool isGrounded;
-    
+
     private Vector3 lastPosition;
 
     void Start()
@@ -38,13 +38,16 @@ public class PlayerMovementm : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * speed * Time.deltaTime);
+        // Hold Shift to run
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? ShiftSpeed : speed;
 
-       
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * currentSpeed * Time.deltaTime);
+
         // Gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
         lastPosition = transform.position;
     }
 }

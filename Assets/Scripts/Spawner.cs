@@ -2,25 +2,34 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Setup")]
-    public GameObject[] enemyPrefabs;
-    public Transform[] spawnPoints;
-    public Transform player;
+    [Header("References")]
+    [SerializeField] private InsaneBar insaneBar;
+    [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform player;
 
-    [Header("Spawning")]
-    public float spawnInterval = 2f;
-    public float spawnRadius = 5f; // fallback if no spawn points
-    public int maxEnemies = 10;
+    [Header("Difficulty")]
+    [Range(0.1f, 5f)]
+    [SerializeField] private float difficultyMultiplier = 1f;
 
-    private float timer;
-    private int currentEnemies = 0;
+    // Internal values (not editable)
+    private float spawnTimer;
+    private int currentEnemies;
+
+    // Base values
+    private const float MIN_SPAWN_INTERVAL = 0.3f;
+    private const float MAX_SPAWN_INTERVAL = 4f;
+
+    private const int BASE_MAX_ENEMIES = 3;
+    private const int MAX_ENEMIES_LIMIT = 50;
 
     void Start()
     {
-        // Auto-find player if not assigned
+        // Auto find player
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
             if (playerObj != null)
             {
                 player = playerObj.transform;
@@ -30,47 +39,52 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        if (insaneBar == null) return;
+        if (enemyPrefabs.Length == 0) return;
 
-        if (timer >= spawnInterval && currentEnemies < maxEnemies)
+        float insanity = insaneBar.GetInsanity();
+
+        // insanity 0 -> slow spawns
+        // insanity 1 -> fast spawns
+
+        float spawnInterval = Mathf.Lerp(
+            MAX_SPAWN_INTERVAL,
+            MIN_SPAWN_INTERVAL,
+            insanity * difficultyMultiplier
+        );
+
+        int maxEnemies = Mathf.RoundToInt(
+            Mathf.Lerp(
+                BASE_MAX_ENEMIES,
+                MAX_ENEMIES_LIMIT,
+                insanity * difficultyMultiplier
+            )
+        );
+
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval && currentEnemies < maxEnemies)
         {
             SpawnEnemy();
-            timer = 0f;
+            spawnTimer = 0f;
         }
     }
 
     void SpawnEnemy()
     {
-        if (enemyPrefabs.Length == 0) return;
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        // Pick random enemy prefab
-        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        GameObject enemyPrefab =
+            enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
 
-        Vector3 spawnPosition;
+        GameObject enemyObj = Instantiate(
+            enemyPrefab,
+            spawnPoint.position,
+            Quaternion.identity
+        );
 
-        // Use spawn points if available
-        if (spawnPoints != null && spawnPoints.Length > 0)
-        {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            spawnPosition = spawnPoint.position;
-        }
-        else
-        {
-            // fallback: random area around spawner
-            Vector3 randomOffset = new Vector3(
-                Random.Range(-spawnRadius, spawnRadius),
-                0f,
-                Random.Range(-spawnRadius, spawnRadius)
-            );
-
-            spawnPosition = transform.position + randomOffset;
-        }
-
-        // Spawn enemy
-        GameObject enemyObj = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-
-        // Assign references
         Enemy enemy = enemyObj.GetComponent<Enemy>();
+
         if (enemy != null)
         {
             enemy.player = player;
@@ -83,5 +97,10 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnemyKilled()
     {
         currentEnemies--;
+
+        if (currentEnemies < 0)
+        {
+            currentEnemies = 0;
+        }
     }
 }

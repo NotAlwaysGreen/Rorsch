@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
 
     [Header("Interaction")]
     public float interactDistance = 3f;
-    public KeyCode interactKey = KeyCode.E;
+    
 
     [Header("Door Settings")]
     public float openAngle = 90f;
@@ -65,7 +65,7 @@ public class Door : MonoBehaviour
         {
             if (hit.transform == transform || hit.transform.IsChildOf(transform))
             {
-                if (Input.GetKeyDown(interactKey) && !isMoving)
+                if (Input.GetKeyDown(KeyCode.E) && !isMoving)
                 {
                     ToggleDoor();
                 }
