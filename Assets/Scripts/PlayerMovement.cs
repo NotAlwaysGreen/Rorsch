@@ -17,6 +17,7 @@ public class PlayerMovementm : MonoBehaviour
     [SerializeField] private InsaneBar insaneBar;
 
     [Header("Punishment")]
+    [Range(0f, 1f)]
     [SerializeField] private float insanityIncreaseSpeed = 0.15f;
 
     private Vector3 velocity;

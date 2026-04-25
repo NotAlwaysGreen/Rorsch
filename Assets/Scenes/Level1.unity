@@ -10275,7 +10275,7 @@ MonoBehaviour:
     m_Bits: 8
   stamina: {fileID: 847599358}
   insaneBar: {fileID: 847599354}
-  insanityIncreaseSpeed: 0.15
+  insanityIncreaseSpeed: 0.197
 --- !u!114 &847599354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10352,7 +10352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stamina
   staminaUi: {fileID: 818265786}
   stamina: 1
-  drainSpeed: 0.5
+  drainSpeed: 0.414
   regenSpeed: 0.15
 --- !u!1001 &853496016
 PrefabInstance:

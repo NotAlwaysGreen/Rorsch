@@ -8,11 +8,13 @@ public class Stamina : MonoBehaviour
 
     [Header("Settings")]
 
-    // 1 = full
+    [Range(0f, 1f)]
     [SerializeField] private float stamina = 1f;
 
+    [Range(0f, 1f)]
     [SerializeField] private float drainSpeed = 0.5f;
 
+    [Range(0f, 1f)]
     [SerializeField] private float regenSpeed = 0.25f;
 
     public void Drain()
