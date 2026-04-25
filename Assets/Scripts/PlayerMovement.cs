@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovementm : MonoBehaviour
 {
+    private InsanityVignette insanityVignette;
     private CharacterController controller;
 
     public float speed;
@@ -31,6 +32,12 @@ public class PlayerMovementm : MonoBehaviour
 
     void Update()
     {
+        GameObject vignetteObj = GameObject.FindGameObjectWithTag("Vignette");
+
+        if (vignetteObj != null)
+        {
+            insanityVignette = vignetteObj.GetComponent<InsanityVignette>();
+        }
         // Ground check
         isGrounded = Physics.CheckSphere(
             groundCheck.position,
@@ -74,11 +81,19 @@ public class PlayerMovementm : MonoBehaviour
             // punish if empty
             if (stamina.GetStamina() <= 0f)
             {
+                if (insanityVignette != null)
+                {
+                    insanityVignette.InsaneSprint = true;
+                }
                 insaneBar.AddInsanity(insanityIncreaseSpeed * Time.deltaTime);
             }
         }
         else
         {
+            if (insanityVignette != null)
+            {
+                insanityVignette.InsaneSprint = false;
+            }
             stamina.Regen();
         }
 
