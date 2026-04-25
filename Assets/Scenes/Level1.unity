@@ -1512,6 +1512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   interactDistance: 3
+  interactKey: 101
+  rayHeight: 1.5
   openAngle: 90
   openSpeed: 3
 --- !u!4 &340969225 stripped
@@ -2762,6 +2764,7 @@ GameObject:
   - component: {fileID: 847599353}
   - component: {fileID: 847599354}
   - component: {fileID: 847599356}
+  - component: {fileID: 847599357}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2826,7 +2829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9aabf079e1fc54a83068de8541bbd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseMovement
-  mouseSensitivity: 150
+  mouseSensitivity: 100
   topClamp: -60
   bottomClamp: 50
 --- !u!114 &847599353
@@ -2841,8 +2844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def17b9a8ceaa1e4b94eb0c980344339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementm
-  speed: 4
-  ShiftSpeed: 8
+  speed: 6
+  ShiftSpeed: 10
   gravity: -59.3
   groundCheck: {fileID: 944107198}
   groundDistance: 0.4
@@ -2890,6 +2893,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &847599357
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847599349}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 4, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &854568993
 PrefabInstance:
   m_ObjectHideFlags: 0
