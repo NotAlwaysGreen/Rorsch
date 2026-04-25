@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4867356154671430265, guid: 791d8b99cdda4e94397b993cd8560e2f, type: 3}
+  - {fileID: 2100000, guid: 24d1cf613073db944b09a847c115a054, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 750782736323365177}
   - component: {fileID: 8039334548511137046}
-  - component: {fileID: 4243029871252565400}
   m_Layer: 10
   m_Name: Pivot
   m_TagString: Untagged
@@ -160,29 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f6235ae38224540a29c7066ec88aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
+  interactDistance: 10
+  interactKey: 101
+  rayHeight: 2
   openAngle: 90
   openSpeed: 5
---- !u!65 &4243029871252565400
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2178051943825240113}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.25, y: 0.96, z: 2.03}
-  m_Center: {x: 0, y: 0.43, z: 1.05}
 --- !u!1 &3077355631551293386
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4867356154671430265, guid: ed3e0eed676786c408836530b439b104, type: 3}
+  - {fileID: 2100000, guid: 24d1cf613073db944b09a847c115a054, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
