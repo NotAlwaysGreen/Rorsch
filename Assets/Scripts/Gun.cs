@@ -122,7 +122,7 @@ public class Gun : MonoBehaviour
 
     private void HandleGrabInput()
     {
-        if (Input.GetKeyDown(KeyCode.E)
+        if (Input.GetKeyDown(KeyCode.Space)
             && Time.time >= nextTimeToFire
             && !isReloading
             && !isScavenging)
@@ -286,9 +286,9 @@ public class Gun : MonoBehaviour
                 yield return null;
             }
 
-            ammoStorage += 1;
+            
 
-            UpdateAmmoUI();
+            
         }
 
         animator.SetBool(
@@ -343,9 +343,9 @@ public class Gun : MonoBehaviour
             + ammoStorage;
     }
 
-    public void AddAmmo(int amount)
+    public void AddAmmo()
     {
-        ammoStorage += amount;
+        ammoStorage += 1;
 
         UpdateAmmoUI();
     }

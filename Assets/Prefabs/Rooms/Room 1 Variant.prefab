@@ -82,6 +82,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doorframe 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 748068740133807606, guid: c85c01a85ae712b418889236c08fd61b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4552751507067025070, guid: c85c01a85ae712b418889236c08fd61b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.50557
@@ -143,6 +147,10 @@ PrefabInstance:
     - target: {fileID: 748068740133807606, guid: c85c01a85ae712b418889236c08fd61b, type: 3}
       propertyPath: m_Name
       value: Doorframe 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 748068740133807606, guid: c85c01a85ae712b418889236c08fd61b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4552751507067025070, guid: c85c01a85ae712b418889236c08fd61b, type: 3}
       propertyPath: m_LocalPosition.x

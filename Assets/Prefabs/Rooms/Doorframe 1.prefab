@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5645392800627567295}
   - component: {fileID: 4173596440722450828}
   - component: {fileID: 2953126837997927236}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Doorframe 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 750782736323365177}
   - component: {fileID: 8039334548511137046}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   interactDistance: 10
-  interactKey: 101
   rayHeight: 2
   openAngle: 90
   openSpeed: 5
@@ -176,7 +175,7 @@ GameObject:
   - component: {fileID: 2390171411219184676}
   - component: {fileID: 7253427836840455530}
   - component: {fileID: 1106092718297059044}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

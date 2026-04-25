@@ -65,7 +65,8 @@ public class Door : MonoBehaviour
             // Check if hit this door or one of its children
             if (hit.transform == transform || hit.transform.IsChildOf(transform))
             {
-                if (Input.GetKeyDown(interactKey) && !isMoving)
+                //replace interactKey with keycode space3
+                if (Input.GetKeyDown(interactKey)&&!isMoving)
                 {
                     ToggleDoor();
                 }
