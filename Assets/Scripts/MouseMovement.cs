@@ -2,25 +2,37 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-   public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 100f;
+
     float xRotation = 0f;
     float yRotation = 0f;
+
     public float topClamp = -90f;
     public float bottomClamp = 90f;
 
-    public float wallTopClamp;
-    public float wallBottomClamp;
+    [Header("Wall Clamp")]
+    public float wallTopClamp = -50f;
+    public float wallBottomClamp = 50f;
 
-    //deafukt
+    [Header("Smooth Transition")]
+    public float clampLerpSpeed = 5f;
+
+    // defaults
     private float defaultTop;
     private float defaultBottom;
+
+    // target clamps
+    private float targetTopClamp;
+    private float targetBottomClamp;
 
     private void Awake()
     {
         defaultTop = topClamp;
         defaultBottom = bottomClamp;
-    }
 
+        targetTopClamp = topClamp;
+        targetBottomClamp = bottomClamp;
+    }
 
     void Start()
     {
@@ -28,9 +40,12 @@ public class MouseMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    
     void Update()
     {
+        // Smoothly transition clamps
+        topClamp = Mathf.Lerp(topClamp, targetTopClamp, clampLerpSpeed * Time.deltaTime);
+        bottomClamp = Mathf.Lerp(bottomClamp, targetBottomClamp, clampLerpSpeed * Time.deltaTime);
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -55,25 +70,23 @@ public class MouseMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if collided object is on Wall layer
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            topClamp = wallTopClamp;
-            bottomClamp = wallBottomClamp;
+            targetTopClamp = wallTopClamp;
+            targetBottomClamp = wallBottomClamp;
 
-            Debug.Log("Colliding with wall, clamping rotation");
+            
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        // Check if exited Wall layer collision
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            topClamp = defaultTop;
-            bottomClamp = defaultBottom;
+            targetTopClamp = defaultTop;
+            targetBottomClamp = defaultBottom;
 
-            Debug.Log("No longer colliding with wall, unclamping rotation");
+           
         }
     }
 }

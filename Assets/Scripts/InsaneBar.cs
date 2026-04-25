@@ -12,6 +12,11 @@ public class InsaneBar : MonoBehaviour
 
     void Update()
     {
+        IncreaseOverTime();
+    }
+
+    private void IncreaseOverTime()
+    {
         insanity += barFillSpeed * Time.deltaTime;
 
         insanity = Mathf.Clamp01(insanity);
