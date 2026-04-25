@@ -4,11 +4,11 @@ public class Door : MonoBehaviour
 {
     [Header("Auto References")]
     private Transform player;
-    private Camera playerCamera;
 
     [Header("Interaction")]
-    public float interactDistance = 3f;
-    
+    public float interactDistance = 10f;
+    public KeyCode interactKey = KeyCode.E;
+    public float rayHeight = 2f;
 
     [Header("Door Settings")]
     public float openAngle = 90f;
@@ -29,18 +29,19 @@ public class Door : MonoBehaviour
         {
             player = playerObject.transform;
         }
+        else
+        {
+            Debug.LogWarning("Player with tag 'Player' not found.");
+        }
 
-        // Auto find main camera
-        playerCamera = Camera.main;
-
-        // Store rotations
+        // Store door rotations
         closedRotation = transform.rotation;
-        openRotation = closedRotation * Quaternion.Euler(0, 0, openAngle);
+        openRotation = closedRotation * Quaternion.Euler(0f, 0f, openAngle);
     }
 
     void Update()
     {
-        if (player == null || playerCamera == null)
+        if (player == null)
             return;
 
         CheckInteraction();
@@ -49,23 +50,22 @@ public class Door : MonoBehaviour
 
     void CheckInteraction()
     {
-        float distance = Vector3.Distance(player.position, transform.position);
+        // Ray starts from player chest/head height
+        Vector3 rayOrigin = player.position + Vector3.up * rayHeight;
+        Vector3 rayDirection = player.forward;
 
-        if (distance > interactDistance)
-            return;
-
-        Ray ray = new Ray(
-            playerCamera.transform.position,
-            playerCamera.transform.forward
-        );
-
+        Ray ray = new Ray(rayOrigin, rayDirection);
         RaycastHit hit;
+
+        // Debug ray visible in Scene view
+        Debug.DrawRay(rayOrigin, rayDirection * interactDistance, Color.red);
 
         if (Physics.Raycast(ray, out hit, interactDistance))
         {
+            // Check if hit this door or one of its children
             if (hit.transform == transform || hit.transform.IsChildOf(transform))
             {
-                if (Input.GetKeyDown(KeyCode.E) && !isMoving)
+                if (Input.GetKeyDown(interactKey) && !isMoving)
                 {
                     ToggleDoor();
                 }
