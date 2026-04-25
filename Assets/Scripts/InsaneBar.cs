@@ -30,4 +30,10 @@ public class InsaneBar : MonoBehaviour
     {
         return insanity;
     }
+    public void AddInsanity(float amount)
+    {
+        insanity += amount;
+
+        insanity = Mathf.Clamp01(insanity);
+    }
 }

@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform player;
+    public InsaneBar insaneBarScript;
 
     [Header("Difficulty")]
     [Range(0.1f, 5f)]
@@ -89,6 +90,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.player = player;
             enemy.spawner = this;
+            enemy.insaneBar = insaneBarScript;
         }
 
         currentEnemies++;

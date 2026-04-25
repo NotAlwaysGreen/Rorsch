@@ -124,12 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff47aadc6fb9804fa638cd20d8986f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  insanityIncrease: 0.05
   minSpeed: 6
   maxSpeed: 18
   minScale: 200
   maxScale: 800
   player: {fileID: 0}
   spawner: {fileID: 0}
+  insaneBar: {fileID: 0}
   maxHP: 1
   fadeDuration: 1
   fadeOutDuration: 0.2

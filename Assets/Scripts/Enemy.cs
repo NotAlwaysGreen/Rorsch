@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Insanity")]
+    public float insanityIncrease;
     [Header("Vignette Effect")]
     private VignetteController vignetteController;
 
@@ -16,6 +18,7 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     public Transform player;
     public EnemySpawner spawner;
+    public InsaneBar insaneBar;
 
     [Header("Health")]
     public int maxHP = 1;
@@ -84,6 +87,7 @@ public class Enemy : MonoBehaviour
             if (vignetteController != null)
             {
                 vignetteController.PlayEffect();
+                insaneBar.AddInsanity(insanityIncrease);
             }
 
             Die();

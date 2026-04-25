@@ -7825,6 +7825,7 @@ MonoBehaviour:
   - {fileID: 1752967364}
   - {fileID: 474246375}
   player: {fileID: 847599351}
+  insaneBarScript: {fileID: 847599354}
   difficultyMultiplier: 1
 --- !u!4 &1843611281
 Transform:
