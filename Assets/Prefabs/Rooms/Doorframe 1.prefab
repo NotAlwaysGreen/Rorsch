@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4867356154671430265, guid: 791d8b99cdda4e94397b993cd8560e2f, type: 3}
+  - {fileID: 2100000, guid: 24d1cf613073db944b09a847c115a054, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   interactDistance: 10
+  interactKey: 101
   rayHeight: 2
   openAngle: 90
   openSpeed: 5
@@ -230,7 +231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4867356154671430265, guid: ed3e0eed676786c408836530b439b104, type: 3}
+  - {fileID: 2100000, guid: 24d1cf613073db944b09a847c115a054, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
