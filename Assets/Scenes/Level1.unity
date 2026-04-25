@@ -10209,7 +10209,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 3.7
+  m_Height: 4.56
   m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: 0.7
@@ -10225,7 +10225,7 @@ Transform:
   m_GameObject: {fileID: 847599349}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.4295366, z: -0, w: 0.9030494}
-  m_LocalPosition: {x: 2.7, y: 2.06, z: 3.42}
+  m_LocalPosition: {x: 2.7, y: 3.65, z: 3.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10250,9 +10250,6 @@ MonoBehaviour:
   mouseSensitivity: 100
   topClamp: -90
   bottomClamp: 90
-  wallTopClamp: -20
-  wallBottomClamp: 20
-  clampLerpSpeed: 5
 --- !u!114 &847599353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10336,7 +10333,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 4, z: 0.9642806}
+  m_Size: {x: 1, y: 3.3, z: 0.9642806}
   m_Center: {x: 0.10082421, y: 0, z: 0.5178605}
 --- !u!114 &847599358
 MonoBehaviour:
@@ -15986,7 +15983,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 6.06, y: 0.47051674, z: 0.33}
-  m_Center: {x: 3.04, y: -0.23, z: 0.01}
+  m_Center: {x: 3.04, y: -0.02, z: 0.01}
 --- !u!4 &1316348794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 334186030840238798, guid: 8a2890b2b90eb594f8485d2d6692f0c3, type: 3}
@@ -18156,7 +18153,7 @@ Transform:
   m_GameObject: {fileID: 1510831439}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19979,7 +19976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a805ddf770f6e5c428de9e46ca76ca7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.02
+      value: -0.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a805ddf770f6e5c428de9e46ca76ca7e, type: 3}
       propertyPath: m_LocalPosition.z
