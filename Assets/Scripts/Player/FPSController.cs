@@ -24,6 +24,12 @@ public class FPSController : MonoBehaviour
     [Header("Insanity")]
     public float insanityGainRate = 0.1f;
 
+    [Header("Death Slowdown")]
+    [SerializeField] private float movementFadeSpeed = 2f;
+
+    private float movementMultiplier = 1f;
+    private bool disableMovementSlowly = false;
+
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0;
 
@@ -37,15 +43,21 @@ public class FPSController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
 
-     
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-       
     }
 
     void Update()
     {
+        if (disableMovementSlowly)
+        {
+            movementMultiplier = Mathf.Lerp(
+                movementMultiplier,
+                0f,
+                movementFadeSpeed * Time.deltaTime
+            );
+        }
+
         HandleMovement();
         HandleRotation();
     }
@@ -65,7 +77,7 @@ public class FPSController : MonoBehaviour
 
         bool isRunning = wantsToRun && isMoving && canSprint;
 
-        //handel stamina
+        // stamina system
         if (staminaSystem != null)
         {
             float stamina = staminaSystem.GetStamina();
@@ -104,8 +116,8 @@ public class FPSController : MonoBehaviour
 
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        float curSpeedX = canMove ? currentSpeed * vertical : 0;
-        float curSpeedY = canMove ? currentSpeed * horizontal : 0;
+        float curSpeedX = currentSpeed * vertical * movementMultiplier;
+        float curSpeedY = currentSpeed * horizontal * movementMultiplier;
 
         float movementDirectionY = moveDirection.y;
 
@@ -132,9 +144,6 @@ public class FPSController : MonoBehaviour
 
     void HandleRotation()
     {
-        if (!canMove)
-            return;
-
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
 
@@ -145,5 +154,10 @@ public class FPSController : MonoBehaviour
             Input.GetAxis("Mouse X") * lookSpeed,
             0
         );
+    }
+
+    public void StartMovementShutdown()
+    {
+        disableMovementSlowly = true;
     }
 }

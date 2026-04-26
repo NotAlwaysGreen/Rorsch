@@ -13,11 +13,11 @@ public class EnemySpawner : MonoBehaviour
     [Range(0.1f, 5f)]
     [SerializeField] private float difficultyMultiplier = 1f;
 
-    // Internal values (not editable)
     private float spawnTimer;
     private int currentEnemies;
 
-    // Base values
+    private bool gameOverMode = false;
+
     private const float MIN_SPAWN_INTERVAL = 0.3f;
     private const float MAX_SPAWN_INTERVAL = 4f;
 
@@ -26,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        // Auto find player
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -45,14 +44,16 @@ public class EnemySpawner : MonoBehaviour
 
         float insanity = insaneBar.GetInsanity();
 
-        // insanity 0 -> slow spawns
-        // insanity 1 -> fast spawns
-
         float spawnInterval = Mathf.Lerp(
             MAX_SPAWN_INTERVAL,
             MIN_SPAWN_INTERVAL,
             insanity * difficultyMultiplier
         );
+
+        if (gameOverMode)
+        {
+            spawnInterval /= 5f;
+        }
 
         int maxEnemies = Mathf.RoundToInt(
             Mathf.Lerp(
@@ -61,6 +62,11 @@ public class EnemySpawner : MonoBehaviour
                 insanity * difficultyMultiplier
             )
         );
+
+        if (gameOverMode)
+        {
+            maxEnemies *= 5;
+        }
 
         spawnTimer += Time.deltaTime;
 
@@ -104,5 +110,10 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemies = 0;
         }
+    }
+
+    public void EnableGameOverMode()
+    {
+        gameOverMode = true;
     }
 }
