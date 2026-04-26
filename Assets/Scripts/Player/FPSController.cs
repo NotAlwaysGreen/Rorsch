@@ -11,6 +11,7 @@ public class FPSController : MonoBehaviour
     public float runSpeed = 12f;
     public float jumpPower = 7f;
     public float gravity = 10f;
+    public float insaneSprintCost = 0.05f;
 
     [Header("Look")]
     public float lookSpeed = 2f;
@@ -80,7 +81,7 @@ public class FPSController : MonoBehaviour
             {
                 if (insanitySystem != null)
                 {
-                    insanitySystem.AddInsanity(insanityGainRate * Time.deltaTime);
+                    insanitySystem.AddInsanity(insaneSprintCost * Time.deltaTime);
                 }
 
                 if (insanityVignette != null)
