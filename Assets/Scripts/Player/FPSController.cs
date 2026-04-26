@@ -49,6 +49,13 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {
+        // force mouse lock for WebGL
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         if (disableMovementSlowly)
         {
             movementMultiplier = Mathf.Lerp(
@@ -64,6 +71,8 @@ public class FPSController : MonoBehaviour
 
     void HandleMovement()
     {
+        if (!canMove) return;
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
@@ -82,13 +91,13 @@ public class FPSController : MonoBehaviour
         {
             float stamina = staminaSystem.GetStamina();
 
-            // RUNNING
+            // running
             if (wantsToRun && isMoving && stamina > 0f)
             {
                 staminaSystem.Drain();
             }
 
-            // OUT OF STAMINA
+            // out of stamina
             else if (wantsToRun && isMoving && stamina <= 0f)
             {
                 if (insanitySystem != null)
@@ -102,7 +111,7 @@ public class FPSController : MonoBehaviour
                 }
             }
 
-            // NORMAL REGEN
+            // regen
             else
             {
                 staminaSystem.Regen();
@@ -119,21 +128,9 @@ public class FPSController : MonoBehaviour
         float curSpeedX = currentSpeed * vertical * movementMultiplier;
         float curSpeedY = currentSpeed * horizontal * movementMultiplier;
 
-        float movementDirectionY = moveDirection.y;
-
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        // Jump
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-        {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
-        }
-
-        // Gravity
+        // gravity
         if (!characterController.isGrounded)
         {
             moveDirection.y -= gravity * Time.deltaTime;
@@ -144,10 +141,13 @@ public class FPSController : MonoBehaviour
 
     void HandleRotation()
     {
+        if (!canMove) return;
+
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
 
-        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        playerCamera.transform.localRotation =
+            Quaternion.Euler(rotationX, 0, 0);
 
         transform.rotation *= Quaternion.Euler(
             0,
