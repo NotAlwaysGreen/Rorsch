@@ -10048,6 +10048,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameOver
   background: {fileID: 763614244}
   youDiedText: {fileID: 244564026}
+  ui:
+  - {fileID: 1506737883}
+  - {fileID: 1598332747}
+  - {fileID: 818265786}
+  - {fileID: 607595650}
   lightRedSpeed: 0.08
   lightRed: {r: 0.8867924, g: 0.23926659, b: 0.23926659, a: 0.35}
   darkRedDelay: 5

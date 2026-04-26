@@ -7,6 +7,7 @@ public class GameOver : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI youDiedText;
+    [SerializeField] private Image[] ui;
 
     [Header("Stage 1 - Light Red Fade")]
     [SerializeField] private float lightRedSpeed = 0.08f;
@@ -99,5 +100,14 @@ public class GameOver : MonoBehaviour
         timer = 0f;
 
         darkeningStarted = false;
+
+        // disable UI immediately
+        foreach (Image image in ui)
+        {
+            if (image != null)
+            {
+                image.gameObject.SetActive(false);
+            }
+        }
     }
 }
