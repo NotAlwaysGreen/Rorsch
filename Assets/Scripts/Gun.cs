@@ -226,7 +226,7 @@ public class Gun : MonoBehaviour
         if (isPickingUp && currentPill != null)
         {
             insaneBar.ReduceInsanity(reduceInsanityAmount);
-
+            SFXController.Instance.Play("Pill");
             Destroy(currentPill);
 
             currentPill = null;
@@ -348,6 +348,18 @@ public class Gun : MonoBehaviour
         ammoStorage += 1;
 
         UpdateAmmoUI();
+    }
+    public void PlaySnap()
+    {
+        SFXController.Instance.Play("Snap");
+    }
+    public void PlayShoot()
+    {
+        SFXController.Instance.Play("Shoot");
+    }
+    public void PlayReload()
+    {
+        SFXController.Instance.Play("Reload");
     }
 }
 

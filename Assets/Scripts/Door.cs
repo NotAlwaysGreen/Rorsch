@@ -22,6 +22,7 @@ public class Door : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.Space))
         {
+            SFXController.Instance.Play("Door");
             ToggleDoor();
         }
 
@@ -35,6 +36,7 @@ public class Door : MonoBehaviour
 
     void RotateDoor()
     {
+        
         Quaternion targetRotation = isOpen ? openRotation : closedRotation;
 
         transform.rotation = Quaternion.Lerp(
