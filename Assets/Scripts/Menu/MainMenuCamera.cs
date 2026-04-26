@@ -8,8 +8,9 @@ public class MenuCameraOrbit : MonoBehaviour
     [Header("Orbit Settings")]
     public float distance = 5f;
     public float horizontalSpeed = 10f;
-    public float verticalAmplitude = 2f;
-    public float verticalSpeed = 1f;
+
+    [Range(-89f, 89f)]
+    public float verticalAngle = 20f; // fixed angle in degrees
 
     [Header("Smoothing")]
     public float smoothSpeed = 2f;
@@ -29,19 +30,19 @@ public class MenuCameraOrbit : MonoBehaviour
     {
         if (target == null) return;
 
-        // Slowly increase angle for horizontal orbit
+        // Horizontal rotation
         angle += Time.deltaTime * horizontalSpeed;
 
-        // Back and forth vertical motion (sine wave)
-        float verticalOffset = Mathf.Sin(Time.time * verticalSpeed) * verticalAmplitude;
+        // Convert angles to radians
+        float radH = angle * Mathf.Deg2Rad;
+        float radV = verticalAngle * Mathf.Deg2Rad;
 
-        // Orbit position
-        Vector3 offset = new Vector3(
-            Mathf.Sin(angle),
-            verticalOffset * 0.1f,
-            Mathf.Cos(angle)
-        ) * distance;
+        // Spherical to Cartesian conversion
+        float x = Mathf.Cos(radV) * Mathf.Sin(radH);
+        float y = Mathf.Sin(radV);
+        float z = Mathf.Cos(radV) * Mathf.Cos(radH);
 
+        Vector3 offset = new Vector3(x, y, z) * distance;
         Vector3 desiredPosition = target.position + offset;
 
         // Smooth movement
@@ -51,7 +52,6 @@ public class MenuCameraOrbit : MonoBehaviour
             Time.deltaTime * smoothSpeed
         );
 
-        // Always look at target
         transform.LookAt(target);
     }
 }
