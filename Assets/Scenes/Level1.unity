@@ -5852,16 +5852,17 @@ MonoBehaviour:
   pauseMenu: {fileID: 890045261}
   ammo: {fileID: 320762049}
   survivalTimer: {fileID: 890045262}
-  winSurviveTime: 120
+  winSurviveTime: 426
   lightRedSpeed: 0.08
-  lightRed: {r: 1, g: 0, b: 0, a: 0.35}
-  darkRedDelay: 5
+  darkRedDelay: 6
   darkRedSpeed: 2.84
-  darkRed: {r: 1, g: 0.058490515, b: 0.058490515, a: 0.9}
+  lightRed: {r: 1, g: 0, b: 0, a: 0.47843137}
+  darkRed: {r: 0.9245283, g: 0.116874315, b: 0.116874315, a: 0.76862746}
+  dreamFade: {r: 0, g: 0, b: 0, a: 0.35}
+  dreamDark: {r: 0, g: 0, b: 0, a: 1}
   textAppearDelay: 0.72
   textFadeSpeed: 0.5
   restartDelay: 8
-  finalFadeSpeed: 1
 --- !u!114 &424286477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6799,8 +6800,8 @@ MonoBehaviour:
   walkSpeed: 6
   runSpeed: 12
   jumpPower: 0
-  gravity: 10
-  insaneSprintCost: 0.01
+  gravity: 20
+  insaneSprintCost: 16.68
   lookSpeed: 0.5
   lookXLimit: 70
   staminaSystem: {fileID: 478847211}
@@ -6843,7 +6844,7 @@ Transform:
   m_GameObject: {fileID: 478847207}
   serializedVersion: 2
   m_LocalRotation: {x: -0.006482724, y: 0.64300144, z: -0.005443068, w: -0.7658182}
-  m_LocalPosition: {x: -3.09, y: 1.64041, z: 1.27}
+  m_LocalPosition: {x: -3.08, y: 0.79, z: 1.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25473,7 +25474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 63, y: -61}
+  m_AnchoredPosition: {x: -82, y: -61}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1880043060
