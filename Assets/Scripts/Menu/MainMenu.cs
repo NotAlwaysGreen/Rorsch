@@ -6,6 +6,12 @@ public class MainMenu : MonoBehaviour
     [Header("Scene Settings")]
     public string gameSceneName = "GameScene";
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void PlayGame()
     {
         SceneManager.LoadScene(gameSceneName);
