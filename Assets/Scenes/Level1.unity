@@ -8897,20 +8897,20 @@ MonoBehaviour:
     startIntensity: 0
     fullIntensity: 0
   - source: {fileID: 159552660}
-    startIntensity: 0.13
-    fullIntensity: 0.25
+    startIntensity: 0.083
+    fullIntensity: 0.222
   - source: {fileID: 527274745}
-    startIntensity: 0.25
-    fullIntensity: 0.5
+    startIntensity: 0.222
+    fullIntensity: 0.382
   - source: {fileID: 1911136881}
-    startIntensity: 0.5
-    fullIntensity: 0.75
+    startIntensity: 0.41
+    fullIntensity: 0.625
   - source: {fileID: 888711081}
-    startIntensity: 0.7
-    fullIntensity: 0.9
+    startIntensity: 0.583
+    fullIntensity: 0.771
   - source: {fileID: 1738423531}
-    startIntensity: 0.7
-    fullIntensity: 0.9
+    startIntensity: 0.639
+    fullIntensity: 0.826
   fadeSpeed: 2
 --- !u!4 &612977779
 Transform:
@@ -27688,7 +27688,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 4b9afe34b06942d408e92c2e8495ebc5, type: 3}
+  m_Resource: {fileID: 8300000, guid: 0b4a6c7dbe709d142aebe4faafa77b32, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
