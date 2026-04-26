@@ -28,16 +28,19 @@ public class FPSController : MonoBehaviour
 
     public bool canMove = true;
 
+    [Header("References")]
     private CharacterController characterController;
+    public InsanityVignette insanityVignette;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
 
+     
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-         
+       
     }
 
     void Update()
@@ -61,24 +64,39 @@ public class FPSController : MonoBehaviour
 
         bool isRunning = wantsToRun && isMoving && canSprint;
 
-        // Handle stamina
+        //handel stamina
         if (staminaSystem != null)
         {
-            if (isRunning)
+            float stamina = staminaSystem.GetStamina();
+
+            // RUNNING
+            if (wantsToRun && isMoving && stamina > 0f)
             {
                 staminaSystem.Drain();
             }
-            else
-            {
-                staminaSystem.Regen();
-            }
 
-            // Add insanity when trying to sprint with no stamina
-            if (wantsToRun && isMoving && staminaSystem.GetStamina() <= 0f)
+            // OUT OF STAMINA
+            else if (wantsToRun && isMoving && stamina <= 0f)
             {
                 if (insanitySystem != null)
                 {
                     insanitySystem.AddInsanity(insanityGainRate * Time.deltaTime);
+                }
+
+                if (insanityVignette != null)
+                {
+                    insanityVignette.SetInsanity(true);
+                }
+            }
+
+            // NORMAL REGEN
+            else
+            {
+                staminaSystem.Regen();
+
+                if (insanityVignette != null)
+                {
+                    insanityVignette.SetInsanity(false);
                 }
             }
         }

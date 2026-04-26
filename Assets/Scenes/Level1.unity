@@ -6079,6 +6079,7 @@ MonoBehaviour:
   insanitySystem: {fileID: 478847212}
   insanityGainRate: 0.1
   canMove: 1
+  insanityVignette: {fileID: 1395222561}
 --- !u!143 &478847209
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6112,7 +6113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478847207}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.64864373, z: -0, w: 0.7610922}
+  m_LocalRotation: {x: 0.006442477, y: 0.64862144, z: -0.0054906392, w: 0.7610641}
   m_LocalPosition: {x: -5.03, y: 1.64041, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6121,7 +6122,7 @@ Transform:
   - {fileID: 330585546}
   - {fileID: 1471406688}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 80.879, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.97, y: 80.879, z: 0}
 --- !u!114 &478847211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17242,9 +17243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InsanityVignette
   canvasGroup: {fileID: 1395222559}
-  fadeInTime: 0.15
-  fadeOutTime: 0.35
-  InsaneSprint: 0
+  fadeSpeed: 5
 --- !u!222 &1395222562
 CanvasRenderer:
   m_ObjectHideFlags: 0

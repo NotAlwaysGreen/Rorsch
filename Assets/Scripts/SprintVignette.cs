@@ -1,54 +1,41 @@
 using UnityEngine;
-using System.Collections;
 
 public class InsanityVignette : MonoBehaviour
 {
+    [Header("Reference")]
     public CanvasGroup canvasGroup;
 
-    public float fadeInTime = 0.15f;
-    public float fadeOutTime = 0.35f;
+    [Header("Fade")]
+    public float fadeSpeed = 5f;
 
-    public bool InsaneSprint;
+    private float targetAlpha;
 
-    private bool lastState;
-    private Coroutine transition;
-
-    void Start()
+    void Awake()
     {
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+
+        if (canvasGroup == null)
+        {
+            Debug.LogError("CanvasGroup missing on vignette object!");
+            enabled = false;
+            return;
+        }
 
         canvasGroup.alpha = 0f;
     }
 
     void Update()
     {
-        if (InsaneSprint != lastState)
-        {
-            lastState = InsaneSprint;
-
-            if (transition != null)
-                StopCoroutine(transition);
-
-            transition = StartCoroutine(FadeState(InsaneSprint));
-        }
+        canvasGroup.alpha = Mathf.Lerp(
+            canvasGroup.alpha,
+            targetAlpha,
+            fadeSpeed * Time.deltaTime
+        );
     }
 
-    IEnumerator FadeState(bool state)
+    public void SetInsanity(bool active)
     {
-        float time = 0f;
-
-        float start = canvasGroup.alpha;
-        float target = state ? 1f : 0f;
-        float duration = state ? fadeInTime : fadeOutTime;
-
-        while (time < duration)
-        {
-            canvasGroup.alpha = Mathf.Lerp(start, target, time / duration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        canvasGroup.alpha = target;
+        targetAlpha = active ? 1f : 0f;
     }
 }
