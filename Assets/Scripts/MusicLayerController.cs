@@ -9,7 +9,7 @@ public class MusicLayer
     public float startIntensity = 0f;
 
     [Range(0f, 1f)]
-    public float fullIntensity = 1f;
+    public float fullIntensity = 0.7f;
 }
 
 public class MusicLayerController : MonoBehaviour

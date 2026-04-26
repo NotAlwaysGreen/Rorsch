@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Randomization")]
     public float minSpeed = 6f;
-    public float maxSpeed = 18f;
+    public float maxSpeed = 12f;
 
     public float minScale = 200f;
     public float maxScale = 1000f;
@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        SFXController.Instance.Play("EyeSpawn");
         GameObject vignetteObj = GameObject.FindGameObjectWithTag("Vignette");
 
         if (vignetteObj != null)
@@ -89,7 +90,7 @@ public class Enemy : MonoBehaviour
                 vignetteController.PlayEffect();
                 insaneBar.AddInsanity(insanityIncrease);
             }
-
+            SFXController.Instance.Play("EyeSpawn");
             Die();
         }
     }
