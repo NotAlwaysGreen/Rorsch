@@ -11,12 +11,22 @@ public class GameOver : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI youDiedText;
 
+    // NEW TEXT REFERENCE
+    [SerializeField] private TextMeshProUGUI dreamText;
+
+    [SerializeField] private TextMeshProUGUI survivalTimeText;
+
     [SerializeField] private Image[] ui;
 
     [Header("Systems")]
     [SerializeField] private PauseMenu pauseMenu;
 
     [SerializeField] private TextMeshProUGUI ammo;
+
+    [SerializeField] private SurvivalTimer survivalTimer;
+
+    [Header("WIN CONDITION")]
+    [SerializeField] private float winSurviveTime = 120f;
 
     [Header("Stage 1 - Light Red Fade")]
     [SerializeField] private float lightRedSpeed = 0.08f;
@@ -53,15 +63,25 @@ public class GameOver : MonoBehaviour
 
     private bool restarting = false;
 
+    private bool playerWon = false;
+
+    private string finalSurvivalTime;
+
     void Awake()
     {
-        // invisible background
-        background.color = new Color(1f, 0f, 0f, 0f);
+        background.color = new Color(0f, 0f, 0f, 0f);
 
-        // invisible text
         Color text = youDiedText.color;
         text.a = 0f;
         youDiedText.color = text;
+
+        Color dream = dreamText.color;
+        dream.a = 0f;
+        dreamText.color = dream;
+
+        Color survival = survivalTimeText.color;
+        survival.a = 0f;
+        survivalTimeText.color = survival;
     }
 
     void Update()
@@ -70,7 +90,52 @@ public class GameOver : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // STAGE 1 - slow red creep
+        // =========================
+        // WIN SEQUENCE
+        // =========================
+        if (playerWon)
+        {
+            background.color = Color.Lerp(
+                background.color,
+                new Color(0f, 0f, 0f, 1f),
+                2f * Time.deltaTime
+            );
+
+            // DREAM TEXT FADE
+            Color dream = dreamText.color;
+
+            dream.a = Mathf.Lerp(
+                dream.a,
+                1f,
+                textFadeSpeed * Time.deltaTime
+            );
+
+            dreamText.color = dream;
+
+            // SURVIVAL TEXT FADE
+            Color survival = survivalTimeText.color;
+
+            survival.a = Mathf.Lerp(
+                survival.a,
+                1f,
+                textFadeSpeed * Time.deltaTime
+            );
+
+            survivalTimeText.color = survival;
+
+            if (!restarting)
+            {
+                restarting = true;
+                StartCoroutine(RestartSequence());
+            }
+
+            return;
+        }
+
+        // =========================
+        // NORMAL DEATH SEQUENCE
+        // =========================
+
         if (!darkeningStarted)
         {
             background.color = Color.Lerp(
@@ -80,13 +145,11 @@ public class GameOver : MonoBehaviour
             );
         }
 
-        // STAGE 2 - darkening starts
         if (timer >= darkRedDelay)
         {
             darkeningStarted = true;
         }
 
-        // STAGE 3 - dark blood red
         if (darkeningStarted)
         {
             background.color = Color.Lerp(
@@ -96,9 +159,9 @@ public class GameOver : MonoBehaviour
             );
         }
 
-        // STAGE 4 - YOU DIED text
         if (timer >= darkRedDelay + textAppearDelay)
         {
+            // YOU DIED TEXT
             Color text = youDiedText.color;
 
             text.a = Mathf.Lerp(
@@ -109,11 +172,22 @@ public class GameOver : MonoBehaviour
 
             youDiedText.color = text;
 
-            // start restart transition once
+            // SURVIVAL TIME
+            survivalTimeText.text = finalSurvivalTime;
+
+            Color survival = survivalTimeText.color;
+
+            survival.a = Mathf.Lerp(
+                survival.a,
+                1f,
+                textFadeSpeed * Time.deltaTime
+            );
+
+            survivalTimeText.color = survival;
+
             if (!restarting)
             {
                 restarting = true;
-
                 StartCoroutine(RestartSequence());
             }
         }
@@ -123,19 +197,61 @@ public class GameOver : MonoBehaviour
     {
         started = true;
 
+        float survivedSeconds = 0f;
+
+        if (survivalTimer != null)
+        {
+            survivalTimer.StopTimer();
+
+            survivedSeconds = survivalTimer.GetCurrentTime();
+
+            finalSurvivalTime =
+                "You survived for: "
+                + survivalTimer.GetFormattedTime();
+        }
+
+        // =========================
+        // CHECK WIN CONDITION
+        // =========================
+        playerWon = survivedSeconds >= winSurviveTime;
+
+        if (playerWon)
+        {
+            background.color = new Color(0f, 0f, 0f, 0f);
+
+            // hide normal death text
+            youDiedText.gameObject.SetActive(false);
+
+            // dream text
+            dreamText.gameObject.SetActive(true);
+            dreamText.text = "It was all a dream";
+            dreamText.color = Color.white;
+
+            // survival text
+            survivalTimeText.text = finalSurvivalTime;
+            survivalTimeText.color = Color.white;
+        }
+        else
+        {
+            // normal death text
+            youDiedText.gameObject.SetActive(true);
+            youDiedText.text = "YOU DIED";
+
+            // hide dream text
+            dreamText.gameObject.SetActive(false);
+        }
+
         timer = 0f;
 
         darkeningStarted = false;
 
         restarting = false;
 
-        // disable ammo UI
         if (ammo != null)
         {
             ammo.gameObject.SetActive(false);
         }
 
-        // disable gameplay UI
         foreach (Image image in ui)
         {
             if (image != null)
@@ -144,7 +260,6 @@ public class GameOver : MonoBehaviour
             }
         }
 
-        // disable pause menu
         if (pauseMenu != null)
         {
             pauseMenu.enabled = false;
@@ -155,30 +270,6 @@ public class GameOver : MonoBehaviour
     {
         yield return new WaitForSeconds(restartDelay);
 
-        Color startColor = background.color;
-
-        Color endColor = new Color(
-            0f,
-            0f,
-            0f,
-            1f
-        );
-
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * finalFadeSpeed;
-
-            background.color = Color.Lerp(
-                startColor,
-                endColor,
-                t
-            );
-
-            yield return null;
-        }
-
         RestartGame();
     }
 
@@ -187,6 +278,5 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1f;
 
         SceneManager.LoadScene("MainMenu");
-            
     }
 }
