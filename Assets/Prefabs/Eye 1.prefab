@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   insanityIncrease: 0.05
   minSpeed: 6
-  maxSpeed: 18
+  maxSpeed: 12
   minScale: 200
   maxScale: 800
   player: {fileID: 0}

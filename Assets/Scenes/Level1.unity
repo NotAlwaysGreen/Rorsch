@@ -6137,8 +6137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stamina
   staminaUi: {fileID: 818265786}
   stamina: 1
-  drainSpeed: 0.414
-  regenSpeed: 0.15
+  drainSpeed: 0.527
+  regenSpeed: 0.099
 --- !u!114 &478847212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16744,7 +16744,7 @@ MonoBehaviour:
   ammoStorage: 15
   reloadTime: 3
   grabTime: 1
-  reduceInsanityAmount: 0.2
+  reduceInsanityAmount: 0.1
   scavengeTime: 2
   ammoText: {fileID: 320762049}
   bulletPrefab: {fileID: 2966311992608409611, guid: e26f49320dad50349ac33e4405dcd5e8, type: 3}
