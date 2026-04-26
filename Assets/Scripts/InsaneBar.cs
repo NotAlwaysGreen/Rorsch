@@ -12,6 +12,13 @@ public class InsaneBar : MonoBehaviour
     [Header("Audio System")]
     [SerializeField] private MusicLayerController audioController;
 
+    [Header("Game Over")]
+    [SerializeField] private GameOver gameOverUI;
+    [SerializeField] private FPSController playerController;
+    [SerializeField] private EnemySpawner enemySpawner;
+
+    private bool gameOverTriggered = false;
+
     private float insanity;
 
     void Update()
@@ -50,12 +57,33 @@ public class InsaneBar : MonoBehaviour
 
     private void UpdateSystems()
     {
-        // UI update
+        // UI
         if (insanityBar != null)
             insanityBar.fillAmount = insanity;
 
-        // Audio update
+        // Audio
         if (audioController != null)
             audioController.SetInsanity(insanity);
+
+        // Game Over Trigger
+        if (insanity >= 1f && !gameOverTriggered)
+        {
+            gameOverTriggered = true;
+
+            if (playerController != null)
+            {
+                playerController.StartMovementShutdown();
+            }
+
+            if (enemySpawner != null)
+            {
+                enemySpawner.EnableGameOverMode();
+            }
+
+            if (gameOverUI != null)
+            {
+                gameOverUI.StartGameOver();
+            }
+        }
     }
 }
