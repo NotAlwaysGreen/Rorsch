@@ -6,6 +6,10 @@ public class Door : MonoBehaviour
     public float openAngle = 90f;
     public float openSpeed = 3f;
 
+    [Header("Lock Settings")]
+    public bool isLocked = false; 
+    public UIFadeText lockedText;
+
     private bool isOpen = false;
     private bool playerInRange = false;
 
@@ -19,15 +23,25 @@ public class Door : MonoBehaviour
     }
 
     void Update()
+{
+    if (playerInRange && Input.GetKeyDown(KeyCode.Space))
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.Space))
+        if (isLocked)
         {
-            SFXController.Instance.Play("Door");
-            ToggleDoor();
+            Debug.Log("Door is locked!");
+
+            if (lockedText != null)
+                lockedText.ShowText();
+
+            return;
         }
 
-        RotateDoor();
+        
+        ToggleDoor();
     }
+
+    RotateDoor();
+}
 
     void ToggleDoor()
     {
@@ -36,7 +50,6 @@ public class Door : MonoBehaviour
 
     void RotateDoor()
     {
-        
         Quaternion targetRotation = isOpen ? openRotation : closedRotation;
 
         transform.rotation = Quaternion.Lerp(
@@ -51,12 +64,17 @@ public class Door : MonoBehaviour
         }
     }
 
+    public void Unlock()
+    {
+        isLocked = false;
+        Debug.Log("Door unlocked!");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            
         }
     }
 
@@ -65,7 +83,6 @@ public class Door : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            
         }
     }
 }
