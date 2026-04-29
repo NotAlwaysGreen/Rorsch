@@ -1,9 +1,14 @@
 using UnityEngine;
+using TMPro;
 using System.Collections;
 
-public class UIFadeText : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
+    public TextMeshProUGUI messageText;
     public CanvasGroup canvasGroup;
+
     public float fadeDuration = 0.5f;
     public float displayTime = 2f;
 
@@ -11,19 +16,22 @@ public class UIFadeText : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         canvasGroup.alpha = 0f;
     }
 
-    public void ShowText()
+    public void ShowMessage(string message)
     {
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
 
-        currentRoutine = StartCoroutine(FadeRoutine());
+        currentRoutine = StartCoroutine(FadeMessage(message));
     }
 
-    IEnumerator FadeRoutine()
+    private IEnumerator FadeMessage(string message)
     {
+        messageText.text = message;
+
         // Fade in
         float t = 0;
         while (t < fadeDuration)

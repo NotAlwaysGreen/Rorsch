@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
 
     [Header("Lock Settings")]
     public bool isLocked = false; 
-    public UIFadeText lockedText;
+    
 
     private bool isOpen = false;
     private bool playerInRange = false;
@@ -28,11 +28,7 @@ public class Door : MonoBehaviour
     {
         if (isLocked)
         {
-            Debug.Log("Door is locked!");
-
-            if (lockedText != null)
-                lockedText.ShowText();
-
+            UIManager.Instance.ShowMessage("This door is locked");
             return;
         }
 
